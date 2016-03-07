@@ -22,15 +22,15 @@ def db_connection
   end
 end
 
-ARTICLE_FILE = 'articles.csv'
-
 get '/' do
   redirect '/articles'
 end
 
 get '/articles' do
-  'Hello world'
-  # @articles = File.readlines('articles.csv')
+  @articles = []
+
+  @articles = db_connection { |conn| conn.exec("SELECT * FROM articles") }
+
   erb :index
 end
 
@@ -39,14 +39,16 @@ get '/articles/new' do
 end
 
 post '/articles/new' do
-  # add_article(params)
-
   redirect '/articles'
 end
 
-def add_article(params)
-  article = [params[:title], params[:url], params[:description]]
-  CSV.open(ARTICLE_FILE, 'a') do |file|
-    file << article
-  end
+post '/articles' do
+  article = Article.new("title" => params[:article_title], "url" => params[:article_url], "description" => params[:article_description])
 end
+
+# def add_article(params)
+#   article = [params[:title], params[:url], params[:description]]
+#   CSV.open(ARTICLE_FILE, 'a') do |file|
+#     file << article
+#   end
+# end

@@ -12,7 +12,13 @@
     <h3><a href="/articles/new">Submit an article here</a></h3>
 
     <ul>
-
+      <% article.each do |row| %>
+      <div>
+        <li><%= row["title"] %> </br>
+        <a href="<%= row["url"] %>" target="_blank"> <%= row["url"] %> </a><br>
+        <%= row["description"] %> </br></li>
+      </div>
+      <% end %>
     </ul>
   </body>
 

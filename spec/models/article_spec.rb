@@ -173,7 +173,6 @@ describe Article do
           data = [title, url, description]
           conn.exec_params(sql_query, data)
         end
-
         article.valid?
         expect(article.errors).to eq([url_already_exists_message])
       end
