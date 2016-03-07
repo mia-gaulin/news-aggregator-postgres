@@ -27,9 +27,7 @@ get '/' do
 end
 
 get '/articles' do
-  @articles = []
-
-  @articles = db_connection { |conn| conn.exec("SELECT * FROM articles") }
+  @articles = Article.all
 
   erb :index
 end
@@ -38,17 +36,14 @@ get '/articles/new' do
   erb :new_index
 end
 
-post '/articles/new' do
-  redirect '/articles'
-end
-
-post '/articles' do
-  article = Article.new("title" => params[:article_title], "url" => params[:article_url], "description" => params[:article_description])
-end
-
-# def add_article(params)
-#   article = [params[:title], params[:url], params[:description]]
-#   CSV.open(ARTICLE_FILE, 'a') do |file|
-#     file << article
-#   end
+# post '/articles/new' do
+#   redirect '/articles'
 # end
+
+post '/articles/new' do
+  article = Article.new("title" => params[:article_title], "url" => params[:article_url], "description" => params[:article_description])
+
+  article.save
+
+  erb :new_index
+end

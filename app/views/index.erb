@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>News Stuff</title>
+    <title>Slacker Central</title>
     <link href="/styles.css" rel="stylesheet">
 
   </head>
@@ -12,11 +12,11 @@
     <h3><a href="/articles/new">Submit an article here</a></h3>
 
     <ul>
-      <% article.each do |row| %>
+      <% @articles.each do |article| %>
       <div>
-        <li><%= row["title"] %> </br>
-        <a href="<%= row["url"] %>" target="_blank"> <%= row["url"] %> </a><br>
-        <%= row["description"] %> </br></li>
+        <li><%= article.title %> </br>
+        <a href="<%= article.url %>" target="_blank"> <%= article.url %> </a><br>
+        <%= article.description %> </br></li>
       </div>
       <% end %>
     </ul>

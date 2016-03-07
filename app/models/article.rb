@@ -33,12 +33,12 @@ class Article
   def valid?
     article_list = Article.all
 
-    if @title.empty? || @url.empty? || @description.empty?
+    if @title == "" || @url == "" || @description == ""
       @errors << "Please completely fill out form"
       false
     end
-
-    if @url != "" && @url.include?("http") == false
+binding.pry
+    if @url != "" && @url.inclue?("http") == false
       @errors << "Invalid URL"
     end
 
