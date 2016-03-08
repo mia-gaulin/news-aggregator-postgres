@@ -1,7 +1,7 @@
 require 'pry'
 
 class Article
-  attr_reader :title, :url, :description, :errors
+  attr_accessor :title, :url, :description, :errors
 
   def initialize(article = {})
     @title = article["title"]
@@ -31,16 +31,16 @@ class Article
   end
 
   def valid?
-    article_list = Article.all
-
     if @title == "" || @url == "" || @description == ""
       @errors << "Please completely fill out form"
       false
     end
-binding.pry
-    if @url != "" && @url.inclue?("http") == false
+
+    if @url != "" && @url.include?("http") == false
       @errors << "Invalid URL"
     end
+
+    article_list = Article.all
 
     if article_list.any? { |article| article.url == @url } == true
       @errors <<  "Article with same url already submitted"

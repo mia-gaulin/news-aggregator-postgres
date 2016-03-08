@@ -13,11 +13,9 @@
 
     <ul>
       <% @articles.each do |article| %>
-      <div>
         <li><%= article.title %> </br>
         <a href="<%= article.url %>" target="_blank"> <%= article.url %> </a><br>
         <%= article.description %> </br></li>
-      </div>
       <% end %>
     </ul>
   </body>

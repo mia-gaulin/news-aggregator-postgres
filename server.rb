@@ -36,14 +36,18 @@ get '/articles/new' do
   erb :new_index
 end
 
-# post '/articles/new' do
-#   redirect '/articles'
-# end
-
-post '/articles/new' do
+post '/articles' do
   article = Article.new("title" => params[:article_title], "url" => params[:article_url], "description" => params[:article_description])
 
-  article.save
-
-  erb :new_index
+  if article.valid?
+    article.save
+    redirect '/articles'
+  end
+  if
+    @errors = "Please completely fill out form"
+    erb :new_index
+  elsif
+    @errors = "Invalid URL"
+    erb :new_index
+  end
 end
